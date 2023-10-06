@@ -1,0 +1,20 @@
+div.container{
+    padding: 5%;
+}
+
+.custom-text-right {
+    text-align: right;
+  }
+
+form.row{
+    padding-top: 5%;
+}
+
+div.addBookmark{
+    padding: 5%;
+    text-align: center;
+}
+
+h1.addBookmark{
+    padding: 5%;
+}

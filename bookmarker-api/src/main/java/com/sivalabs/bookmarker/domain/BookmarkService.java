@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -25,4 +26,17 @@ public class BookmarkService {
         return new BookMarksDTO(bookMarkPage);
     }
 
+    @Transactional(readOnly = true)
+    public BookMarksDTO searchBookmarks(String query, Integer page) {
+        int pageNo = page < 1 ? 0 : page-1;
+        Pageable pageable =  PageRequest.of(pageNo, 10, Sort.Direction.DESC , "createdAt");
+        Page<BookmarkDTO> bookMarkPage = bookmarkRepository.searchBookmarks(query, pageable);
+        return new BookMarksDTO(bookMarkPage);
+    }
+
+    public BookmarkDTO createBookmark(CreateBookmarkRequest request) {
+        Bookmark bookmark = new Bookmark(null, request.getTitle(), request.getUrl(), Instant.now());
+        bookmarkRepository.save(bookmark);
+        return new BookmarkDTO(bookmark.getId(), bookmark.getTitle(), bookmark.getUrl(), bookmark.getCreatedAt());
+    }
 }

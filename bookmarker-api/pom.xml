@@ -70,28 +70,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.testcontainers</groupId>
-				<artifactId>testcontainers-bom</artifactId>
-				<version>${testcontainers.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+
 
 	<build>
 		<plugins>
@@ -116,12 +96,12 @@
 				<version>3.4.0</version>
 				<configuration>
 					<from>
-						<image>eclipse-temurin:17-jre-focal</image>
+						<image>eclipse-temurin:17-jre-alpine</image>
 					</from>
 					<to>
 						<image>microrb/bookmark-api-jib</image>
 						<tags>
-							<tag>latest</tag>
+							<tag>alpine</tag>
 							<tag>1.0.0</tag>
 						</tags>
 					</to>

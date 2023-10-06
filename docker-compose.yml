@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  bookmarker-ui:
+    image: microrb/bookmarker-ui:latest
+    ports:
+      - "5173:5173"
+
+  bookmarker-api:
+    image: microrb/bookmark-api-jib:latest
+    ports:
+      - "8080:8080"
