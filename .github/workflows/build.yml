@@ -30,3 +30,32 @@ jobs:
           ./mvnw clean package jib:dockerBuild -DskipTests
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push ${{ secrets.DOCKER_USERNAME }}/bookmark-api-jib
+
+  build-bookmarker-ui:
+    name: Build bookmarker-ui
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./bookmarker-ui
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.18.0
+          cache: 'npm'
+          cache-dependency-path: bookmarker-ui/package-lock.json
+      - name: Install dependencies
+        run: npm -i
+
+      - name: Build
+        run: npm build
+
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Build and Publish Docker Image
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/bookmarker-ui .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/bookmarker-ui
