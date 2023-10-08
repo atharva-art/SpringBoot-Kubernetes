@@ -109,6 +109,14 @@
 						<ports>
 							<port>8080</port>
 						</ports>
+						<entrypoint>
+							<shell>/bin/sh</shell>
+							<shell>-c</shell>
+							<cmd>
+								apk --no-cache add curl &amp;&amp;
+								java -cp /app/resources:/app/classes:/app/libs/* com.sivalabs.bookmarker.BookmarkerApiApplication
+							</cmd>
+						</entrypoint>
 					</container>
 				</configuration>
 			</plugin>
